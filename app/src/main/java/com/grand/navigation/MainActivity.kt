@@ -5,13 +5,16 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import androidx.navigation.ui.onNavDestinationSelected as onNavDestinationSelected1
 
 class MainActivity : AppCompatActivity() {
@@ -24,8 +27,10 @@ class MainActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.findNavController()
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         appBarConfiguration = AppBarConfiguration(
-            setOf(R.id.homeFragment, R.id.searchFragment)
+            setOf(R.id.homeFragment, R.id.searchFragment, R.id.settingsFragment),
+            drawerLayout
         )
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
@@ -33,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         val bottomNavigationView: BottomNavigationView = findViewById(R.id.bottom_nav)
         bottomNavigationView.setupWithNavController(navController)
+        val navigationView: NavigationView = findViewById(R.id.nav_view)
+        navigationView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -51,6 +58,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return navController.navigateUp() || super.onSupportNavigateUp()
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }

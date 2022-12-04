@@ -11,5 +11,10 @@
         android:icon="@drawable/ic_search"
         android:title="Search"
         />
+    <item
+        android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_settings"
+        android:title="Settings"
+        />
 
 </menu>
