@@ -9,15 +9,20 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
+
+    private val args: LoginFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val usernameEditText = view.findViewById<EditText>(R.id.edit_text_username)
         val passwordEditText = view.findViewById<EditText>(R.id.edit_text_password)
-        val username = passwordEditText.text.toString()
+        val username = usernameEditText.text.toString()
         val password = passwordEditText.text.toString()
+
+        usernameEditText.setText(args.username)
 
         val confirm = view.findViewById<Button>(R.id.button_confirm)
         confirm.setOnClickListener {
